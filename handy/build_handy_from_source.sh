@@ -81,7 +81,7 @@ log "Installing JS deps"
 "$BUN_BIN" install
 
 log "Building .deb bundle only"
-"$BUN_BIN" run tauri build -- --bundles deb
+"$BUN_BIN" run tauri build --bundles deb
 
 DEB=$(find src-tauri/target/release/bundle/deb -maxdepth 1 -type f -name 'Handy_*_amd64.deb' | sort -V | tail -1)
 if [ -z "${DEB:-}" ]; then
