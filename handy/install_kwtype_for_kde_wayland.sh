@@ -42,6 +42,31 @@ s = s.replace("qtprocessed = qt6.compile_moc(headers: 'src/main.h')", "qtprocess
 s = s.replace("qt6_deps,", "qt5_deps,")
 s = s.replace("dependency('KWaylandClient')", "dependency('KF5WaylandClient')")
 p.write_text(s)
+
+p = Path('src/main.cpp')
+s = p.read_text()
+s = s.replace('''    if (!QDBusConnection::sessionBus().interface()->isServiceRegistered(
+            "org.kde.keyboard")) {
+        std::cerr << "Error: org.kde.keyboard DBus service is not available.\\n";
+        return 1;
+    }
+    uint32_t originalLayout = kwinGetLayout();
+    uint32_t currentLayout = originalLayout;
+''','''    bool hasKwinKeyboardService = QDBusConnection::sessionBus().interface()->isServiceRegistered(
+            "org.kde.keyboard");
+    if (!hasKwinKeyboardService) {
+        std::cerr << "Warning: org.kde.keyboard DBus service is not available; layout switching disabled.\\n";
+    }
+    uint32_t originalLayout = hasKwinKeyboardService ? kwinGetLayout() : 0;
+    uint32_t currentLayout = originalLayout;
+''')
+s = s.replace('''            if (currentLayout != targetLayout) {
+''','''            if (hasKwinKeyboardService && currentLayout != targetLayout) {
+''')
+s = s.replace('''    if (currentLayout != originalLayout) {
+''','''    if (hasKwinKeyboardService && currentLayout != originalLayout) {
+''')
+p.write_text(s)
 PY
 
 meson setup --prefix="$PREFIX" --buildtype=release build
