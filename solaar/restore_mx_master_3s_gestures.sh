@@ -33,6 +33,11 @@ cat > "$RULES_FILE" <<'YAML'
   - click
 ...
 ---
+# Click/release the thumb gesture button without moving: KDE Overview.
+- MouseGesture: [Mouse Gesture Button]
+- Execute: [qdbus, org.kde.kglobalaccel, /component/kwin, org.kde.kglobalaccel.Component.invokeShortcut, Overview]
+...
+---
 # MX Master 3S: hold thumb gesture button + move left/right to switch desktops.
 - MouseGesture: [Mouse Gesture Button, Mouse Left]
 - Execute: [qdbus, org.kde.KWin, /KWin, org.kde.KWin.previousDesktop]
@@ -42,13 +47,9 @@ cat > "$RULES_FILE" <<'YAML'
 - Execute: [qdbus, org.kde.KWin, /KWin, org.kde.KWin.nextDesktop]
 ...
 ---
-# With local KDE config desktops are one horizontal row, so up/down are utility gestures.
-- MouseGesture: [Mouse Gesture Button, Mouse Up]
-- Execute: [qdbus, org.kde.kglobalaccel, /component/kwin, org.kde.kglobalaccel.Component.invokeShortcut, Overview]
-...
----
+# Up is intentionally unassigned for now. Down keeps a handy Show Desktop gesture.
 - MouseGesture: [Mouse Gesture Button, Mouse Down]
-- Execute: [qdbus, org.kde.KWin, /KWin, org.kde.KWin.showDesktop, true]
+- Execute: [qdbus, org.kde.KWin, /KWin, org.kde.KWin.showDesktop, "true"]
 ...
 YAML
 

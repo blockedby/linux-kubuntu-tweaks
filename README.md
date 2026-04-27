@@ -280,13 +280,14 @@ Restore Logitech Options-style thumb gestures on Linux via Solaar:
 What this configures in `~/.config/solaar/rules.yaml`:
 
 ```text
+click/release thumb gesture button     -> KDE Overview
 hold thumb gesture button + move left  -> previous KDE desktop
 hold thumb gesture button + move right -> next KDE desktop
-hold thumb gesture button + move up    -> KDE Overview
 hold thumb gesture button + move down  -> Show Desktop
+hold thumb gesture button + move up    -> intentionally unassigned for now
 ```
 
-Local KDE currently has 5 virtual desktops in one row (`Rows=1`), so real up/down desktop navigation does not make sense yet. If desktops are changed to a 2D grid later, replace the up/down actions with KDE's `Switch One Desktop Up/Down` shortcuts or equivalent KWin commands.
+Local KDE currently has 5 virtual desktops in one row (`Rows=1`), so real up/down desktop navigation does not make sense yet. If desktops are changed to a 2D grid later, assign the up gesture to KDE's `Switch One Desktop Up` shortcut or an equivalent KWin command.
 
 The script also persists Solaar's MX Master 3S button diversion:
 
