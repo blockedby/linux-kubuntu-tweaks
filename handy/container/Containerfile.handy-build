@@ -4,7 +4,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV PATH=/root/.cargo/bin:/root/.bun/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-  ca-certificates curl git bash \
+  ca-certificates curl git bash unzip \
   build-essential pkg-config cmake patchelf \
   autoconf automake libtool \
   clang libclang-dev \

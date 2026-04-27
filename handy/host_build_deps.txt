@@ -1,0 +1,30 @@
+# Host packages installed/used for direct Handy source builds.
+# If using Podman container builds instead, these can be removed from host if not needed elsewhere.
+
+build-essential
+libasound2-dev
+libevdev-dev
+pkg-config
+libssl-dev
+libvulkan-dev
+vulkan-tools
+glslc
+clang
+libclang-dev
+libgtk-3-dev
+libwebkit2gtk-4.1-dev
+libayatana-appindicator3-dev
+librsvg2-dev
+libgtk-layer-shell-dev
+patchelf
+cmake
+autoconf
+automake
+libtool
+cargo
+rustc
+
+# Keep these for runtime/Wayland Handy paste support:
+# libgtk-layer-shell0
+# wtype
+# wl-clipboard

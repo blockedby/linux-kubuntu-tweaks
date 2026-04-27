@@ -180,3 +180,34 @@ Install:
 ```bash
 sudo apt install ~/code/tools/handy-build-output/Handy_*_amd64.deb
 ```
+
+## Removing old host Handy build dependencies
+
+If Handy is built in Podman/Docker instead of directly on the host, host build dependencies can be removed if not needed elsewhere.
+
+Package list is stored in:
+
+```text
+handy/host_build_deps.txt
+```
+
+Review first:
+
+```bash
+cat ~/code/tools/linux-kubuntu-tweaks/handy/host_build_deps.txt
+```
+
+Possible removal command:
+
+```bash
+sudo apt remove --purge $(grep -v '^#' ~/code/tools/linux-kubuntu-tweaks/handy/host_build_deps.txt | xargs)
+sudo apt autoremove --purge
+```
+
+Keep runtime helpers for Handy on KDE Wayland:
+
+```text
+wtype
+wl-clipboard
+libgtk-layer-shell0
+```
