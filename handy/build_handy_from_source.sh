@@ -37,9 +37,13 @@ APT_DEPS=(
   wl-clipboard
 )
 
-log "Installing apt build/runtime dependencies"
-sudo apt update
-sudo apt install -y "${APT_DEPS[@]}"
+if [ "${SKIP_APT:-0}" = "1" ]; then
+  log "Skipping apt dependencies because SKIP_APT=1"
+else
+  log "Installing apt build/runtime dependencies"
+  sudo apt update
+  sudo apt install -y "${APT_DEPS[@]}"
+fi
 
 export PATH="$HOME/.cargo/bin:$PATH"
 

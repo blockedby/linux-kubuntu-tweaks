@@ -154,3 +154,9 @@ bun --version
 `~/.local/bin` should be in PATH.
 
 Handy upstream may require a newer Rust than Ubuntu apt `rustc`/`cargo`. The build helper installs Rust via official `rustup-init` into `~/.cargo` if `rustup` is missing, then uses the stable toolchain from `~/.cargo/bin` before building. This avoids Ubuntu apt `rustup` conflicts with apt `rustc`/`cargo`.
+
+If apt dependencies are already installed, skip sudo/apt stage:
+
+```bash
+SKIP_APT=1 ~/code/tools/linux-kubuntu-tweaks/handy/build_handy_from_source.sh v0.8.2
+```
