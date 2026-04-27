@@ -138,3 +138,15 @@ The script clones/updates upstream source in:
 ```
 
 It builds only the Debian bundle and installs it only after confirmation.
+
+## VitePlus Bun symlink
+
+This machine has Bun inside VitePlus but not always exposed as `bun` in shell PATH. To expose it:
+
+```bash
+mkdir -p ~/.local/bin
+ln -sf "$HOME/.vite-plus/js_runtime/node/24.15.0/lib/node_modules/bun/node_modules/@oven/bun-linux-x64-baseline/bin/bun" "$HOME/.local/bin/bun"
+bun --version
+```
+
+`~/.local/bin` should be in PATH.
