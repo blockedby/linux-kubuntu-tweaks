@@ -21,6 +21,8 @@ APT_DEPS=(
   libvulkan-dev
   vulkan-tools
   glslc
+  clang
+  libclang-dev
   libgtk-3-dev
   libwebkit2gtk-4.1-dev
   libayatana-appindicator3-dev
@@ -116,8 +118,9 @@ git --no-pager log --oneline -1
 log "Installing JS deps"
 "$BUN_BIN" install
 
-log "Applying local Linux build workaround if needed"
-python3 - <<'PY'
+if [ "${HANDY_DISABLE_VULKAN:-0}" = "1" ]; then
+  log "Applying local Linux build workaround: disabling whisper-vulkan"
+  python3 - <<'PY'
 from pathlib import Path
 p = Path('src-tauri/Cargo.toml')
 s = p.read_text()
@@ -125,10 +128,13 @@ old = 'transcribe-rs = { version = "0.3.3", features = ["whisper-vulkan"] }'
 new = 'transcribe-rs = { version = "0.3.8", features = ["whisper-cpp", "onnx"] }'
 if old in s:
     p.write_text(s.replace(old, new))
-    print('Patched Linux transcribe-rs: disabled whisper-vulkan to avoid whisper-rs/ggml Vulkan symbol mismatch')
+    print('Patched Linux transcribe-rs: disabled whisper-vulkan')
 else:
     print('No Linux whisper-vulkan patch needed')
 PY
+else
+  log "Keeping Handy Linux whisper-vulkan enabled"
+fi
 
 log "Building .deb bundle only"
 set +e
