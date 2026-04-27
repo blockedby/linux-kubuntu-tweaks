@@ -12,14 +12,13 @@ fi
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CONTAINERFILE="$REPO_ROOT/handy/container/Containerfile.handy-build"
 IMAGE="${IMAGE:-handy-build:ubuntu24.04}"
-SRC_DIR="${SRC_DIR:-$HOME/code/tools/Handy-container-src}"
 OUT_DIR="${OUT_DIR:-$HOME/code/tools/handy-build-output}"
 TAG="${1:-v0.8.2}"
 REPO_URL="${REPO_URL:-https://github.com/blockedby/Handy.git}"
 
 log() { printf '\n==> %s\n' "$*"; }
 
-mkdir -p "$SRC_DIR" "$OUT_DIR"
+mkdir -p "$OUT_DIR"
 
 log "Building container image with $ENGINE"
 "$ENGINE" build -t "$IMAGE" -f "$CONTAINERFILE" "$REPO_ROOT"
@@ -27,26 +26,22 @@ log "Building container image with $ENGINE"
 log "Building Handy $TAG inside container"
 "$ENGINE" run --rm \
   --ulimit nofile=1048576:1048576 \
-  -v "$SRC_DIR:/src:Z" \
   -v "$OUT_DIR:/out:Z" \
   "$IMAGE" \
   bash -lc "set -euo pipefail
     ulimit -n 1048576 || true
     export PATH=/root/.cargo/bin:/root/.bun/bin:\$PATH
-    if [ ! -d /src/.git ]; then
-      git clone '$REPO_URL' /src
-    fi
-    cd /src
+    git clone '$REPO_URL' /work/Handy
+    cd /work/Handy
     git fetch --all --tags --prune
     git checkout '$TAG'
     git reset --hard
-    rm -rf src-tauri/target/release/bundle/deb/*.deb src-tauri/target/release/build/whisper-rs-sys-* src-tauri/target/release/deps/libwhisper_rs_sys-*
     rustc --version
     cargo --version
     bun --version
     bun install
     set +e
-    bun run tauri build --bundles deb
+    CI=1 bun run tauri build --ci --no-sign --bundles deb
     status=\$?
     set -e
     deb=\$(find src-tauri/target/release/bundle/deb -maxdepth 1 -type f -name 'Handy_*_amd64.deb' | sort -V | tail -1)
