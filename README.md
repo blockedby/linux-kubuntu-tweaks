@@ -254,3 +254,17 @@ all synthetic insertion and only copy transcripts to clipboard:
 
 This sets `paste_method=none` and `clipboard_handling=copy_to_clipboard`, then
 restarts Handy.
+
+### KDE Plasma quick panel/tray reset
+
+If KDE panel, dock/task manager, system tray, virtual desktop widgets, or hover
+effects get weird, restart only `plasmashell`:
+
+```bash
+kquitapp5 plasmashell
+sleep 2
+kstart5 plasmashell
+```
+
+This does **not** restart the Wayland session, KWin, NetworkManager, VPN, or
+open applications. It only reloads the Plasma desktop shell/panels/widgets.
