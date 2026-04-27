@@ -91,3 +91,28 @@ paste_method = direct
 typing_tool = wtype
 push_to_talk = false
 ```
+
+## GitHub push auth after reboot
+
+If `git push` asks for GitHub username/password or fails with `ksshaskpass`, refresh GitHub CLI git credentials:
+
+```bash
+gh auth status
+gh auth setup-git
+git push
+```
+
+Expected git credential helper:
+
+```bash
+git config --global --get-all credential.helper
+# should include:
+# !/usr/bin/gh auth git-credential
+```
+
+The repo currently uses HTTPS remote:
+
+```bash
+git remote -v
+# https://github.com/blockedby/linux-kubuntu-tweaks.git
+```
