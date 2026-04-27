@@ -219,3 +219,26 @@ https://github.com/blockedby/Handy
 ```
 
 Do not open PRs to upstream unless explicitly requested.
+
+### Podman Handy build: inotify limit
+
+If containerized Tauri build fails with:
+
+```text
+Too many open files
+crates/tauri-cli/src/interface/rust.rs:146
+```
+
+raise host inotify instance limit, then rerun:
+
+```bash
+sudo sysctl fs.inotify.max_user_instances=8192
+~/code/tools/linux-kubuntu-tweaks/handy/build_handy_in_container.sh v0.8.2
+```
+
+Persistent setting:
+
+```bash
+echo 'fs.inotify.max_user_instances=8192' | sudo tee /etc/sysctl.d/99-inotify.conf
+sudo sysctl --system
+```
