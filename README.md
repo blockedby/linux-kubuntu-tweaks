@@ -125,6 +125,8 @@ If Handy auto-update does not work, build upstream manually. The script also ins
 ~/code/tools/linux-kubuntu-tweaks/handy/build_handy_from_source.sh
 ```
 
+By default it builds the latest version tag, not `main`, because upstream `main` can be temporarily broken.
+
 Optional: build a specific tag/branch:
 
 ```bash

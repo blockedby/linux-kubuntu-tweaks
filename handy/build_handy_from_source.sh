@@ -6,7 +6,7 @@ set -euo pipefail
 
 SRC_DIR="${SRC_DIR:-$HOME/code/tools/Handy}"
 REPO_URL="${REPO_URL:-https://github.com/cjpais/Handy.git}"
-BRANCH_OR_TAG="${1:-${BRANCH_OR_TAG:-main}}"
+BRANCH_OR_TAG="${1:-${BRANCH_OR_TAG:-latest}}"
 
 log() { printf '\n==> %s\n' "$*"; }
 need() { command -v "$1" >/dev/null 2>&1 || { echo "ERROR: missing command: $1"; exit 1; }; }
@@ -89,6 +89,15 @@ fi
 cd "$SRC_DIR"
 log "Fetching upstream"
 git fetch --all --tags --prune
+
+if [ "$BRANCH_OR_TAG" = "latest" ]; then
+  BRANCH_OR_TAG="$(git tag --list 'v*' | sort -V | tail -1)"
+  if [ -z "$BRANCH_OR_TAG" ]; then
+    echo "ERROR: no version tags found"
+    exit 1
+  fi
+  log "Using latest release tag: $BRANCH_OR_TAG"
+fi
 
 git checkout "$BRANCH_OR_TAG"
 if [ "$BRANCH_OR_TAG" = "main" ] || [ "$BRANCH_OR_TAG" = "master" ]; then
