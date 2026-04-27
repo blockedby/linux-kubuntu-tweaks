@@ -242,3 +242,15 @@ Persistent setting:
 echo 'fs.inotify.max_user_instances=8192' | sudo tee /etc/sysctl.d/99-inotify.conf
 sudo sysctl --system
 ```
+
+### Handy: disable automatic paste
+
+If Wayland paste/input experiments interfere with the desktop clipboard, disable
+all synthetic insertion and only copy transcripts to clipboard:
+
+```bash
+~/code/tools/linux-kubuntu-tweaks/handy/disable_handy_auto_paste.sh
+```
+
+This sets `paste_method=none` and `clipboard_handling=copy_to_clipboard`, then
+restarts Handy.
