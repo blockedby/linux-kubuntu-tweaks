@@ -73,3 +73,21 @@ gh auth login -h github.com
 cd ~/code/tools/linux-kubuntu-tweaks
 gh repo create linux-kubuntu-tweaks --private --source=. --remote=origin --push
 ```
+
+## Handy on KDE Wayland
+
+If Handy transcribes but does not paste/insert text on Wayland:
+
+```bash
+sudo apt install wtype wl-clipboard
+~/code/tools/linux-kubuntu-tweaks/handy/fix_handy_wayland_paste.sh
+handy --start-hidden
+```
+
+The script changes Handy to:
+
+```text
+paste_method = direct
+typing_tool = wtype
+push_to_talk = false
+```
