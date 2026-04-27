@@ -15,6 +15,7 @@ APT_DEPS=(
   git
   build-essential
   libasound2-dev
+  libevdev-dev
   pkg-config
   libssl-dev
   libvulkan-dev
@@ -29,6 +30,9 @@ APT_DEPS=(
   patchelf
   cmake
   curl
+  autoconf
+  automake
+  libtool
   wtype
   wl-clipboard
 )
