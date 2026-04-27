@@ -268,3 +268,46 @@ kstart5 plasmashell
 
 This does **not** restart the Wayland session, KWin, NetworkManager, VPN, or
 open applications. It only reloads the Plasma desktop shell/panels/widgets.
+
+## MX Master 3S Solaar gestures for KDE desktops
+
+Restore Logitech Options-style thumb gestures on Linux via Solaar:
+
+```bash
+~/code/tools/linux-kubuntu-tweaks/solaar/restore_mx_master_3s_gestures.sh
+```
+
+What this configures in `~/.config/solaar/rules.yaml`:
+
+```text
+hold thumb gesture button + move left  -> previous KDE desktop
+hold thumb gesture button + move right -> next KDE desktop
+hold thumb gesture button + move up    -> KDE Overview
+hold thumb gesture button + move down  -> Show Desktop
+```
+
+Local KDE currently has 5 virtual desktops in one row (`Rows=1`), so real up/down desktop navigation does not make sense yet. If desktops are changed to a 2D grid later, replace the up/down actions with KDE's `Switch One Desktop Up/Down` shortcuts or equivalent KWin commands.
+
+The script also persists Solaar's MX Master 3S button diversion:
+
+```text
+Mouse Gesture Button -> Mouse Gestures
+Smart Shift          -> Diverted
+```
+
+Caveat: Solaar may show `Mouse Gesture Button: Mouse Gestures` as saved but `Diverted` as active until the mouse is power-cycled or reconnected. Flip the MX Master 3S power switch off/on after running the script.
+
+Backups are written before changes:
+
+```text
+~/.config/solaar/backups/config.yaml.<timestamp>.bak
+~/.config/solaar/backups/rules.yaml.<timestamp>.bak
+```
+
+Tested on this machine with:
+
+```text
+Kubuntu 24.04 / KDE Plasma 5.27
+MX Master 3S via Bolt receiver
+local Solaar fork: ~/code/Solaar/.venv/bin/solaar
+```
