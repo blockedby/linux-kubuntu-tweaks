@@ -116,3 +116,26 @@ The repo currently uses HTTPS remote:
 git remote -v
 # https://github.com/blockedby/linux-kubuntu-tweaks.git
 ```
+
+## Build Handy from source
+
+If Handy auto-update does not work, build upstream manually:
+
+```bash
+# install build deps first, per upstream BUILD.md
+~/code/tools/linux-kubuntu-tweaks/handy/build_handy_from_source.sh
+```
+
+Optional: build a specific tag/branch:
+
+```bash
+~/code/tools/linux-kubuntu-tweaks/handy/build_handy_from_source.sh v0.8.2
+```
+
+The script clones/updates upstream source in:
+
+```text
+~/code/tools/Handy
+```
+
+It builds only the Debian bundle and installs it only after confirmation.
