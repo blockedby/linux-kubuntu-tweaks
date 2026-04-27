@@ -5,7 +5,7 @@ set -euo pipefail
 # Safe order: build first, then install the generated .deb over the existing package.
 
 SRC_DIR="${SRC_DIR:-$HOME/code/tools/Handy}"
-REPO_URL="${REPO_URL:-https://github.com/cjpais/Handy.git}"
+REPO_URL="${REPO_URL:-https://github.com/blockedby/Handy.git}"
 BRANCH_OR_TAG="${1:-${BRANCH_OR_TAG:-latest}}"
 
 log() { printf '\n==> %s\n' "$*"; }

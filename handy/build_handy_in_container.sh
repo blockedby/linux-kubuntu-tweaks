@@ -15,7 +15,7 @@ IMAGE="${IMAGE:-handy-build:ubuntu24.04}"
 SRC_DIR="${SRC_DIR:-$HOME/code/tools/Handy-container-src}"
 OUT_DIR="${OUT_DIR:-$HOME/code/tools/handy-build-output}"
 TAG="${1:-v0.8.2}"
-REPO_URL="${REPO_URL:-https://github.com/cjpais/Handy.git}"
+REPO_URL="${REPO_URL:-https://github.com/blockedby/Handy.git}"
 
 log() { printf '\n==> %s\n' "$*"; }
 

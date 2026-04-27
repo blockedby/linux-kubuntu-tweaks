@@ -70,3 +70,7 @@ handy --start-hidden
 ```
 
 The script backs up Handy settings before changing them.
+
+## Handy fork policy
+
+Use the user fork `https://github.com/blockedby/Handy` for local Handy build patches. Do not open pull requests to upstream `cjpais/Handy` unless the user explicitly asks.

@@ -211,3 +211,11 @@ wtype
 wl-clipboard
 libgtk-layer-shell0
 ```
+
+Handy local fork used for experiments/build patches:
+
+```text
+https://github.com/blockedby/Handy
+```
+
+Do not open PRs to upstream unless explicitly requested.
