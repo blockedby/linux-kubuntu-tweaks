@@ -11,6 +11,33 @@ BRANCH_OR_TAG="${1:-${BRANCH_OR_TAG:-main}}"
 log() { printf '\n==> %s\n' "$*"; }
 need() { command -v "$1" >/dev/null 2>&1 || { echo "ERROR: missing command: $1"; exit 1; }; }
 
+APT_DEPS=(
+  git
+  build-essential
+  libasound2-dev
+  pkg-config
+  libssl-dev
+  libvulkan-dev
+  vulkan-tools
+  glslc
+  libgtk-3-dev
+  libwebkit2gtk-4.1-dev
+  libayatana-appindicator3-dev
+  librsvg2-dev
+  libgtk-layer-shell0
+  libgtk-layer-shell-dev
+  patchelf
+  cmake
+  cargo
+  rustc
+  wtype
+  wl-clipboard
+)
+
+log "Installing apt build/runtime dependencies"
+sudo apt update
+sudo apt install -y "${APT_DEPS[@]}"
+
 log "Checking required commands"
 need git
 need bun

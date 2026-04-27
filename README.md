@@ -119,10 +119,9 @@ git remote -v
 
 ## Build Handy from source
 
-If Handy auto-update does not work, build upstream manually:
+If Handy auto-update does not work, build upstream manually. The script also installs apt dependencies for the build:
 
 ```bash
-# install build deps first, per upstream BUILD.md
 ~/code/tools/linux-kubuntu-tweaks/handy/build_handy_from_source.sh
 ```
 
