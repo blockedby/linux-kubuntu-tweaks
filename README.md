@@ -150,3 +150,5 @@ bun --version
 ```
 
 `~/.local/bin` should be in PATH.
+
+Handy upstream may require a newer Rust than Ubuntu apt `rustc`/`cargo`. The build helper installs `rustup` and uses the stable toolchain from `~/.cargo/bin` before building.

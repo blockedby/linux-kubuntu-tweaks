@@ -30,6 +30,7 @@ APT_DEPS=(
   cmake
   cargo
   rustc
+  rustup
   wtype
   wl-clipboard
 )
@@ -38,12 +39,22 @@ log "Installing apt build/runtime dependencies"
 sudo apt update
 sudo apt install -y "${APT_DEPS[@]}"
 
+export PATH="$HOME/.cargo/bin:$PATH"
+
 log "Checking required commands"
 need git
-need cargo
-need rustc
+need rustup
 need dpkg
 need apt
+
+log "Ensuring modern Rust toolchain via rustup"
+rustup toolchain install stable
+rustup default stable
+hash -r
+need cargo
+need rustc
+log "Using rustc: $(rustc --version)"
+log "Using cargo: $(cargo --version)"
 
 if command -v bun >/dev/null 2>&1; then
   BUN_BIN="$(command -v bun)"
