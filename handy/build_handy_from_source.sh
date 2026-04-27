@@ -28,9 +28,7 @@ APT_DEPS=(
   libgtk-layer-shell-dev
   patchelf
   cmake
-  cargo
-  rustc
-  rustup
+  curl
   wtype
   wl-clipboard
 )
@@ -43,10 +41,18 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 log "Checking required commands"
 need git
-need rustup
+need curl
 need dpkg
 need apt
 
+if ! command -v rustup >/dev/null 2>&1; then
+  log "Installing rustup to ~/.cargo via official rustup-init"
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal
+  export PATH="$HOME/.cargo/bin:$PATH"
+  hash -r
+fi
+
+need rustup
 log "Ensuring modern Rust toolchain via rustup"
 rustup toolchain install stable
 rustup default stable
