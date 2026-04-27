@@ -160,3 +160,23 @@ If apt dependencies are already installed, skip sudo/apt stage:
 ```bash
 SKIP_APT=1 ~/code/tools/linux-kubuntu-tweaks/handy/build_handy_from_source.sh v0.8.2
 ```
+
+## Build Handy in container
+
+To avoid polluting the host with build dependencies, build Handy in Podman/Docker:
+
+```bash
+~/code/tools/linux-kubuntu-tweaks/handy/build_handy_in_container.sh v0.8.2
+```
+
+Output `.deb` goes to:
+
+```text
+~/code/tools/handy-build-output/
+```
+
+Install:
+
+```bash
+sudo apt install ~/code/tools/handy-build-output/Handy_*_amd64.deb
+```
