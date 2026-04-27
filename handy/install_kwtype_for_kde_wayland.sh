@@ -29,6 +29,18 @@ git pull --ff-only || true
 
 log "Building"
 rm -rf build
+# Ubuntu 24.04 packages the KWayland client pkg-config file as KF5WaylandClient.pc,
+# while upstream KWtype asks Meson for KWaylandClient. Patch only the local checkout.
+if pkg-config --exists KF5WaylandClient && ! pkg-config --exists KWaylandClient; then
+  python3 - <<'PY'
+from pathlib import Path
+p = Path('meson.build')
+s = p.read_text()
+s = s.replace("dependency('KWaylandClient')", "dependency('KF5WaylandClient')")
+p.write_text(s)
+PY
+fi
+
 meson setup --prefix="$PREFIX" --buildtype=release build
 meson compile -C build
 meson install -C build
