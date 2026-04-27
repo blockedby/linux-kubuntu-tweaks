@@ -26,10 +26,12 @@ log "Building container image with $ENGINE"
 
 log "Building Handy $TAG inside container"
 "$ENGINE" run --rm \
+  --ulimit nofile=1048576:1048576 \
   -v "$SRC_DIR:/src:Z" \
   -v "$OUT_DIR:/out:Z" \
   "$IMAGE" \
   bash -lc "set -euo pipefail
+    ulimit -n 1048576 || true
     export PATH=/root/.cargo/bin:/root/.bun/bin:\$PATH
     if [ ! -d /src/.git ]; then
       git clone '$REPO_URL' /src
