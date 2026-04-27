@@ -40,11 +40,24 @@ sudo apt install -y "${APT_DEPS[@]}"
 
 log "Checking required commands"
 need git
-need bun
 need cargo
 need rustc
 need dpkg
 need apt
+
+if command -v bun >/dev/null 2>&1; then
+  BUN_BIN="$(command -v bun)"
+elif [ -x "$HOME/.vite-plus/js_runtime/node/24.15.0/lib/node_modules/bun/node_modules/@oven/bun-linux-x64-baseline/bin/bun" ]; then
+  BUN_BIN="$HOME/.vite-plus/js_runtime/node/24.15.0/lib/node_modules/bun/node_modules/@oven/bun-linux-x64-baseline/bin/bun"
+elif [ -x "$HOME/.vite-plus/js_runtime/node/24.15.0/lib/node_modules/bun/node_modules/@oven/bun-linux-x64-musl/bin/bun" ]; then
+  BUN_BIN="$HOME/.vite-plus/js_runtime/node/24.15.0/lib/node_modules/bun/node_modules/@oven/bun-linux-x64-musl/bin/bun"
+else
+  echo "ERROR: missing command: bun"
+  echo "Install Bun or expose VitePlus Bun, e.g.:"
+  echo "  ln -sf \"$HOME/.vite-plus/js_runtime/node/24.15.0/lib/node_modules/bun/node_modules/@oven/bun-linux-x64-baseline/bin/bun\" \"$HOME/.local/bin/bun\""
+  exit 1
+fi
+log "Using bun: $BUN_BIN"
 
 log "Source dir: $SRC_DIR"
 if [ ! -d "$SRC_DIR/.git" ]; then
@@ -65,10 +78,10 @@ log "Current upstream version"
 git --no-pager log --oneline -1
 
 log "Installing JS deps"
-bun install
+"$BUN_BIN" install
 
 log "Building .deb bundle only"
-bun run tauri build -- --bundles deb
+"$BUN_BIN" run tauri build -- --bundles deb
 
 DEB=$(find src-tauri/target/release/bundle/deb -maxdepth 1 -type f -name 'Handy_*_amd64.deb' | sort -V | tail -1)
 if [ -z "${DEB:-}" ]; then
