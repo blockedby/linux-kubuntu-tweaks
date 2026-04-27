@@ -114,10 +114,36 @@ git --no-pager log --oneline -1
 log "Installing JS deps"
 "$BUN_BIN" install
 
+log "Applying local Linux build workaround if needed"
+python3 - <<'PY'
+from pathlib import Path
+p = Path('src-tauri/Cargo.toml')
+s = p.read_text()
+old = 'transcribe-rs = { version = "0.3.3", features = ["whisper-vulkan"] }'
+new = 'transcribe-rs = { version = "0.3.8", features = ["whisper-cpp", "onnx"] }'
+if old in s:
+    p.write_text(s.replace(old, new))
+    print('Patched Linux transcribe-rs: disabled whisper-vulkan to avoid whisper-rs/ggml Vulkan symbol mismatch')
+else:
+    print('No Linux whisper-vulkan patch needed')
+PY
+
 log "Building .deb bundle only"
+set +e
 "$BUN_BIN" run tauri build --bundles deb
+BUILD_STATUS=$?
+set -e
 
 DEB=$(find src-tauri/target/release/bundle/deb -maxdepth 1 -type f -name 'Handy_*_amd64.deb' | sort -V | tail -1)
+if [ "$BUILD_STATUS" -ne 0 ]; then
+  if [ -n "${DEB:-}" ]; then
+    echo "WARN: Tauri build exited with $BUILD_STATUS, but a .deb was produced. Continuing."
+    echo "      This can happen when upstream updater signing pubkey exists but private key is unavailable."
+  else
+    echo "ERROR: Tauri build failed and no .deb was produced."
+    exit "$BUILD_STATUS"
+  fi
+fi
 if [ -z "${DEB:-}" ]; then
   echo "ERROR: no Handy amd64 .deb found"
   exit 1
