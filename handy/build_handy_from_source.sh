@@ -104,6 +104,8 @@ if [ "$BRANCH_OR_TAG" = "latest" ]; then
 fi
 
 git checkout "$BRANCH_OR_TAG"
+# Keep build reproducible: discard local source changes from previous workaround runs.
+git reset --hard
 if [ "$BRANCH_OR_TAG" = "main" ] || [ "$BRANCH_OR_TAG" = "master" ]; then
   git pull --ff-only || true
 fi
