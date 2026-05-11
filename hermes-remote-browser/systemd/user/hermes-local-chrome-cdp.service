@@ -1,0 +1,21 @@
+[Unit]
+Description=Local headed Hermes Chrome CDP endpoint for remote Hermes MCP
+After=graphical-session.target network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/google-chrome-stable \
+  --remote-debugging-address=127.0.0.1 \
+  --remote-debugging-port=9233 \
+  --user-data-dir=/home/kcnc/.cache/hermes-google-chrome-mcp \
+  --profile-directory=Default \
+  --no-first-run \
+  --no-default-browser-check \
+  --new-window \
+  about:blank
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,20 @@
+[Unit]
+Description=Reverse SSH tunnel: NL-2-NVMe 127.0.0.1:9233 -> local Chrome CDP
+After=network-online.target hermes-local-chrome-cdp.service
+Wants=network-online.target hermes-local-chrome-cdp.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/ssh \
+  -N \
+  -o BatchMode=yes \
+  -o ExitOnForwardFailure=yes \
+  -o ServerAliveInterval=30 \
+  -o ServerAliveCountMax=3 \
+  -R 127.0.0.1:9233:127.0.0.1:9233 \
+  nl-2-nvme
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

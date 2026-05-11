@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Hermes Chrome
+Comment=Open Google Chrome in the same profile/session used by Hermes Chrome DevTools MCP
+Exec=/usr/bin/google-chrome-stable --remote-debugging-port=9233 --user-data-dir=/home/kcnc/.cache/hermes-google-chrome-mcp --profile-directory=Default --no-first-run --no-default-browser-check --new-window
+Icon=google-chrome
+Terminal=false
+Categories=Network;WebBrowser;
+StartupNotify=true
