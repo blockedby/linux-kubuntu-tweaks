@@ -72,8 +72,14 @@ Dependencies:
 - Can run parallel with: none.
 
 Executor:
-- `aad-implementer`.
+- Slice owner executed directly because nested subagent dispatch was blocked by harness depth; followed the `aad-implementer` task packet and wrote the implementer-style report.
 
 ## Dependency graph / execution ledger
 - Task 1 -> final owner verification/report.
-- Status: pending dispatch.
+- Status: implementation complete; owner final verification/report pending.
+
+
+## Verification evidence
+- Local verification recorded in `verification/local.md`.
+- Implementer-style report recorded in `reports/aad-implementer-task-1.md`.
+- Initial scan, `git diff --check`, and status passed before final commit.

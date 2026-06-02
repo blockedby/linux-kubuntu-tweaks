@@ -1,6 +1,17 @@
 # linux-kubuntu-tweaks
 
-Personal backup repo for Kubuntu reinstall notes and scripts.
+Personal Kubuntu/Linux automation and recovery runbook.
+
+This is an environment-specific notebook for restoring my desktop setup after reinstalls, debugging local network/VPN issues, and keeping small helper scripts close to the commands that use them. It is public as a portfolio/runbook artifact, not as a polished product or a universal installer.
+
+Use these notes as examples to adapt carefully: review paths, package names, kernel/driver versions, device names, and local URLs before running commands on another machine.
+
+## What is here
+
+- `net-debug/` — Wi-Fi/VPN/v2rayN/sing-box diagnostics and recovery snapshots.
+- `websocketcam-pixel/` — Pixel WebsocketCAM to `v4l2loopback` virtual camera helper.
+- `handy/` — Handy speech-to-text build and KDE Wayland paste/input helpers.
+- `solaar/` — KDE/Solaar mouse gesture restoration notes for Logitech devices.
 
 ## Packages
 
@@ -32,7 +43,7 @@ Recover stale v2rayN/sing-box TUN:
 fix_net
 ```
 
-Bad signs: `singbox_tun`, `ip rule 9000..9010`, DNS `172.18.0.2`, fake IP `198.18.x.x`.
+Bad signs: `singbox_tun`, unexpected high-priority `ip rule` entries, container/VPN-provided DNS resolvers, or fake-IP DNS ranges such as `198.18.x.x`.
 
 ## MT7925E Wi-Fi
 
@@ -62,17 +73,7 @@ pixel_cam --status
 pixel_cam
 ```
 
-Default: `ws://192.168.50.30:3535 -> /dev/video10`.
-
-## Private GitHub
-
-GitHub CLI auth currently needs refresh. Later:
-
-```bash
-gh auth login -h github.com
-cd ~/code/tools/linux-kubuntu-tweaks
-gh repo create linux-kubuntu-tweaks --private --source=. --remote=origin --push
-```
+Default workflow: point the helper at your own WebsocketCAM phone/app URL and bridge it to `/dev/video10`. For example, set `WS_URL="ws://<phone-or-camera-host>:<port>"` before running the helper when the default in the script does not match your network.
 
 ## Handy on KDE Wayland
 
@@ -91,6 +92,10 @@ paste_method = direct
 typing_tool = wtype
 push_to_talk = false
 ```
+
+## Public-safety note
+
+This README was sanitized for public portfolio use on 2026-06-02: private bootstrap notes and a machine-specific camera endpoint were removed/generalized while keeping the practical recovery commands. Keep future notes free of credentials, raw logs, private endpoints, and other sensitive local details.
 
 ## GitHub push auth after reboot
 
