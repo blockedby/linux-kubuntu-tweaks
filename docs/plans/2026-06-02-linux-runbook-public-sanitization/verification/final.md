@@ -43,6 +43,6 @@ Result: passed, no output.
 
 ## git status
 ```text
-## portfolio-linux-sanitization...origin/main [ahead 2]
-?? docs/plans/2026-06-02-linux-runbook-public-sanitization/verification/final.md
+## portfolio-linux-sanitization...origin/portfolio-linux-sanitization
+ M docs/plans/2026-06-02-linux-runbook-public-sanitization/verification/final.md
 ```
