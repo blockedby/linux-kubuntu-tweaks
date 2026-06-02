@@ -83,3 +83,9 @@ Executor:
 - Local verification recorded in `verification/local.md`.
 - Implementer-style report recorded in `reports/aad-implementer-task-1.md`.
 - Initial scan, `git diff --check`, and status passed before final commit.
+
+## Final slice done-state
+- README sanitization complete and verified.
+- PR opened: https://github.com/blockedby/linux-kubuntu-tweaks/pull/1
+- Branch pushed: `portfolio-linux-sanitization` at `e8e8e54` before this metadata update.
+- Blockers: none.
