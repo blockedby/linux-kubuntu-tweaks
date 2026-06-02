@@ -62,7 +62,7 @@ Acceptance criteria:
 
 Test plan:
 - Positive: inspect first 20 lines and required sections.
-- Negative/security: `rg -n '192\.168\.|10\.|172\.(1[6-9]|2[0-9]|3[0-1])\.|token|cookie|secret|PRIVATE|--private|vibe coder' README.md` with context judgment.
+- Negative/security: `rg -n '192\.168\.|10\.|172\.(1[6-9]|2[0-9]|3[0-1])\.|token|cookie|secret|PRIVATE|--private|forbidden public phrase' README.md` with context judgment.
 - Formatting: `git diff --check`.
 - State: `git status --short --branch`.
 

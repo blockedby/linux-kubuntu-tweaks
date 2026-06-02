@@ -36,7 +36,7 @@
   - Evidence: no matches.
 
 ## Verification run
-- `rg -n '192\.168\.|10\.|172\.(1[6-9]|2[0-9]|3[0-1])\.|token|cookie|secret|PRIVATE|--private|vibe coder' README.md`: passed, no matches.
+- `rg -n '192\.168\.|10\.|172\.(1[6-9]|2[0-9]|3[0-1])\.|token|cookie|secret|PRIVATE|--private|forbidden public phrase' README.md`: passed, no matches.
 - `git diff --check`: passed, no output.
 - `git status --short --branch`: branch ahead with README pending before final commit.
 

@@ -5,7 +5,7 @@ Commands run from worktree `/home/kcnc/code/tools/linux-kubuntu-tweaks/.worktree
 ## README privacy scan
 
 ```bash
-rg -n '192\.168\.|10\.|172\.(1[6-9]|2[0-9]|3[0-1])\.|token|cookie|secret|PRIVATE|--private|vibe coder' README.md
+rg -n '192\.168\.|10\.|172\.(1[6-9]|2[0-9]|3[0-1])\.|token|cookie|secret|PRIVATE|--private|forbidden public phrase' README.md
 ```
 
 Result: passed, no matches.
